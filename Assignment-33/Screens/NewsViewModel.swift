@@ -12,16 +12,18 @@ final class NewsViewModel: ObservableObject {
     // MARK: - Properties
     private var networkManager: GenericNetworkManager
     @Published var news: [News] = []
+    @Published var newsMock: [News] =  [NewsMockData.previewExample]
+
     
     // MARK: - Init
     init() {
-        self.networkManager = GenericNetworkManager(baseURL: "https://api.worldnewsapi.com/")
+        self.networkManager = GenericNetworkManager(baseURL: "https://mocki.io/v1/")
         fetchData()
     }
-    
+        
     //MARK: - Methods
     func fetchData() {
-        let endpoint = "search-news?authors=Phil+Hutchinson&api-key=acfea0d1338b47abaa130aca5262496bv"
+        let endpoint = "9ded1a15-89b5-4566-92fe-466bfd8cd544"
         networkManager.fetchData(endpoint: endpoint) { (result: Result<NewsData, Error>) in
             switch result {
             case .success(let data):

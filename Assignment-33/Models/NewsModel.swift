@@ -16,7 +16,7 @@ struct NewsData: Decodable {
 }
 
 // MARK: - News
-struct News: Decodable {
+struct News: Decodable, Identifiable {
     let id: Int
     let title: String
     let text: String

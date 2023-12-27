@@ -8,17 +8,26 @@
 import SwiftUI
 
 struct NewsView: View {
+    // MARK: - Properties
+    @EnvironmentObject var viewModel: NewsViewModel
+    
+    // MARK: - Body
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Color.yellow.opacity(0.7)
+                .ignoresSafeArea()
+            
+            VStack {
+                UITableViewRepresentableView(news: $viewModel.news)
+            }
+            .padding(.horizontal, 5)
         }
-        .padding()
+        
+        
+        
     }
 }
 
 #Preview {
-    NewsView()
+    NewsView().environmentObject(NewsViewModel())
 }

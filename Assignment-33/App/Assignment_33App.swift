@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Assignment_33App: App {
+    @State var viewModel = NewsViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NewsView()
         }
+        .environmentObject(viewModel)
     }
 }
