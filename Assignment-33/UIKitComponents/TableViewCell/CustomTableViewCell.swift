@@ -43,7 +43,6 @@ class CustomNewsCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        stackView.backgroundColor = .clear
         return stackView
     }()
     

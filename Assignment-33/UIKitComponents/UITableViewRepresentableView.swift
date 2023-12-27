@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UITableViewRepresentableView: UIViewRepresentable {
+    // MARK: - Properties
     @Binding var news: [News]
-    
     
     // MARK: - Protocol Methods
     func makeUIView(context: Context) -> UITableView {
@@ -31,9 +31,8 @@ struct UITableViewRepresentableView: UIViewRepresentable {
         Coordinator(news: news)
     }
     
-    //Coordinator
+    // MARK: - Coordinator
     class Coordinator: NSObject, UITableViewDataSource {
-        //        @Binding var news: [News]
         var news: [News]
         
         
@@ -53,7 +52,6 @@ struct UITableViewRepresentableView: UIViewRepresentable {
                 return UITableViewCell()
             }
         }
-
     }
 }
 
