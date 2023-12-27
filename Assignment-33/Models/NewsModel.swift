@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - NewsModel
-struct NewsModel: Decodable {
+struct NewsData: Decodable {
     let offset: Int
     let number: Int
     let available: Int
