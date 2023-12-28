@@ -17,13 +17,13 @@ final class NewsViewModel: ObservableObject {
     
     // MARK: - Init
     init() {
-        self.networkManager = GenericNetworkManager(baseURL: "https://mocki.io/v1/")
+        self.networkManager = GenericNetworkManager(baseURL: "https://api.worldnewsapi.com/")
         fetchData()
     }
         
     //MARK: - Methods
     func fetchData() {
-        let endpoint = "9ded1a15-89b5-4566-92fe-466bfd8cd544"
+        let endpoint = "search-news?authors=Phil+Hutchinson&api-key=ef64d5ab17944807940b10369f9f7a44"
         networkManager.fetchData(endpoint: endpoint) { (result: Result<NewsData, Error>) in
             switch result {
             case .success(let data):
