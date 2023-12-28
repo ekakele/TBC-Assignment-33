@@ -10,13 +10,17 @@ import SwiftUI
 struct NewsView: View {
     // MARK: - Properties
     @EnvironmentObject var viewModel: NewsViewModel
-    
+    @Environment(\.sizeCategory) var sizeCategory
+
     // MARK: - Body
     var body: some View {
         NavigationStack {
             tableViewZStackView
                 .navigationTitle("Accessible News")
+                .accessibilityElement()
+                .accessibilityAddTraits(.isHeader)
         }
+        .minimumScaleFactor(sizeCategory.customMinScaleFactor)
     }
     
     // MARK: - Components
@@ -32,7 +36,7 @@ struct NewsView: View {
         VStack {
             UITableViewRepresentableView(news: $viewModel.news)
         }
-        .padding(.horizontal, 5)
+        .padding(.horizontal, 10)
     }
 }
 

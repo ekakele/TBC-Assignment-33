@@ -14,9 +14,11 @@ struct UITableViewRepresentableView: UIViewRepresentable {
     // MARK: - Protocol Methods
     func makeUIView(context: Context) -> UITableView {
         let tableView = UITableView()
-        tableView.dataSource = context.coordinator
         tableView.register(CustomNewsCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.backgroundColor = .clear
+        
+        tableView.dataSource = context.coordinator
+        tableView.delegate = context.coordinator
         return tableView
     }
     
@@ -32,7 +34,7 @@ struct UITableViewRepresentableView: UIViewRepresentable {
     }
     
     // MARK: - Coordinator
-    class Coordinator: NSObject, UITableViewDataSource {
+    class Coordinator: NSObject, UITableViewDataSource, UITableViewDelegate {
         var news: [News]
         
         

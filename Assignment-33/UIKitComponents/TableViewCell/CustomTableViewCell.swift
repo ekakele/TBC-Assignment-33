@@ -20,6 +20,15 @@ class CustomNewsCell: UITableViewCell {
         return label
     }()
     
+    private let newsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 8
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
@@ -61,6 +70,7 @@ class CustomNewsCell: UITableViewCell {
     // MARK: - Configure
     func configure(with newsItem: News) {
         titleLabel.text = newsItem.title
+        setImage(from: newsItem.image)
         publishDateLabel.text = newsItem.publishDate
         contentLabel.text = newsItem.text
     }
@@ -69,6 +79,7 @@ class CustomNewsCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
+        newsImageView.image = nil
         publishDateLabel.text = nil
         contentLabel.text = nil
     }
@@ -76,6 +87,7 @@ class CustomNewsCell: UITableViewCell {
     // MARK: - Private Methods
     private func setupStackView() {
         cellStackView.addArrangedSubview(titleLabel)
+        cellStackView.addArrangedSubview(newsImageView)
         cellStackView.addArrangedSubview(contentLabel)
         cellStackView.addArrangedSubview(publishDateLabel)
         
@@ -87,5 +99,35 @@ class CustomNewsCell: UITableViewCell {
             cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            newsImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            newsImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            newsImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            newsImageView.heightAnchor.constraint(equalToConstant: 230)
+            ])
+    }
+    
+    private func setImage(from url: String) {
+        downloadImage(from: url) { [weak self] image in
+                self?.newsImageView.image = image
+        }
+    }
+    
+    private func downloadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil, let image = UIImage(data: data) else {
+                completion(nil)
+                return
+            }
+            DispatchQueue.main.async {
+            completion(image)
+            }
+        }.resume()
     }
 }

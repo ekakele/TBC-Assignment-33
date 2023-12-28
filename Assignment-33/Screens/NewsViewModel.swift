@@ -29,11 +29,11 @@ final class NewsViewModel: ObservableObject {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.news = data.news
-                    print(data.news)
                 }
             case .failure(let error):
                 print("Error fetching items: \(error.localizedDescription)")
             }
         }
     }
+
 }
